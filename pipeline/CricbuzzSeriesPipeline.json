@@ -9,7 +9,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@range(2008,2008)",
+						"value": "@range(2008,2009)",
 						"type": "Expression"
 					},
 					"isSequential": true,
@@ -90,7 +90,7 @@
 									},
 									"storeSettings": {
 										"type": "AzureBlobStorageReadSettings",
-										"recursive": true,
+										"recursive": false,
 										"enablePartitionDiscovery": false
 									},
 									"formatSettings": {
