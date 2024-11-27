@@ -1,0 +1,61 @@
+{
+	"name": "CricbuzzSeriesPipeline",
+	"properties": {
+		"activities": [
+			{
+				"name": "APIgetSeries",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"method": "GET",
+					"headers": {
+						"X-Rapidapi-Key": "19b75326b3mshc9a93b138461d32p192a82jsnead60c87e459",
+						"X-Rapidapi-Host": "cricbuzz-cricket.p.rapidapi.com"
+					},
+					"url": "https://cricbuzz-cricket.p.rapidapi.com/series/v1/archives/league?year=2023"
+				}
+			},
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "APIgetSeries",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "resVariable",
+					"value": {
+						"value": "@activity('APIgetSeries').output.seriesMapProto[0].series",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"variables": {
+			"responseVariable": {
+				"type": "String"
+			},
+			"resVariable": {
+				"type": "Array"
+			}
+		},
+		"annotations": []
+	}
+}
