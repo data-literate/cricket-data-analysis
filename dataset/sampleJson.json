@@ -1,0 +1,19 @@
+{
+	"name": "sampleJson",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "CricketBlobStorage",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "sample.json",
+				"container": "raw"
+			}
+		},
+		"schema": {}
+	}
+}

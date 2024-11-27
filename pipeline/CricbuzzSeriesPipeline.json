@@ -55,7 +55,7 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
-								"variableName": "respVariable",
+								"variableName": "responseVariable",
 								"value": {
 									"value": "@activity('APIgetSeriesLeague').output.seriesMapProto[0].series",
 									"type": "Expression"
@@ -83,10 +83,10 @@
 							"userProperties": [],
 							"typeProperties": {
 								"source": {
-									"type": "DelimitedTextSource",
+									"type": "JsonSource",
 									"additionalColumns": {
 										"type": "Expression",
-										"value": "@variables('respVariable')"
+										"value": "@variables('responseVariable')"
 									},
 									"storeSettings": {
 										"type": "AzureBlobStorageReadSettings",
@@ -94,7 +94,7 @@
 										"enablePartitionDiscovery": false
 									},
 									"formatSettings": {
-										"type": "DelimitedTextReadSettings"
+										"type": "JsonReadSettings"
 									}
 								},
 								"sink": {
@@ -110,13 +110,13 @@
 							},
 							"inputs": [
 								{
-									"referenceName": "DelimitedText1",
+									"referenceName": "sampleJson",
 									"type": "DatasetReference"
 								}
 							],
 							"outputs": [
 								{
-									"referenceName": "Json2",
+									"referenceName": "outputJson",
 									"type": "DatasetReference"
 								}
 							]
@@ -127,13 +127,12 @@
 		],
 		"variables": {
 			"responseVariable": {
-				"type": "String"
+				"type": "Array",
+				"defaultValue": []
 			},
-			"resVariable": {
-				"type": "Array"
-			},
-			"respVariable": {
-				"type": "Array"
+			"testVariable": {
+				"type": "String",
+				"defaultValue": "sample text"
 			}
 		},
 		"annotations": []
