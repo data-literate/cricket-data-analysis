@@ -9,7 +9,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@range(2008,2024)",
+						"value": "@range(2008,2008)",
 						"type": "Expression"
 					},
 					"isSequential": true,
