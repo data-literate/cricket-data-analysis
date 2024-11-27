@@ -3,48 +3,125 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "APIgetSeries",
-				"type": "WebActivity",
+				"name": "ForEach1",
+				"type": "ForEach",
 				"dependsOn": [],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
 				"userProperties": [],
 				"typeProperties": {
-					"method": "GET",
-					"headers": {
-						"X-Rapidapi-Key": "19b75326b3mshc9a93b138461d32p192a82jsnead60c87e459",
-						"X-Rapidapi-Host": "cricbuzz-cricket.p.rapidapi.com"
-					},
-					"url": "https://cricbuzz-cricket.p.rapidapi.com/series/v1/archives/league?year=2023"
-				}
-			},
-			{
-				"name": "Set variable1",
-				"type": "SetVariable",
-				"dependsOn": [
-					{
-						"activity": "APIgetSeries",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"variableName": "resVariable",
-					"value": {
-						"value": "@activity('APIgetSeries').output.seriesMapProto[0].series",
+					"items": {
+						"value": "@range(2008,2024)",
 						"type": "Expression"
-					}
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "APIgetSeriesLeague",
+							"type": "WebActivity",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"method": "GET",
+								"headers": {
+									"x-rapidapi-host": "cricbuzz-cricket.p.rapidapi.com",
+									"x-rapidapi-key": "19b75326b3mshc9a93b138461d32p192a82jsnead60c87e459"
+								},
+								"url": {
+									"value": "@concat('https://cricbuzz-cricket.p.rapidapi.com/series/v1/archives/league?year=',item())",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "respVariable",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "APIgetSeriesLeague",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "respVariable",
+								"value": {
+									"value": "@activity('APIgetSeriesLeague').output.seriesMapProto[0].series",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "copyDataToBlob",
+							"type": "Copy",
+							"dependsOn": [
+								{
+									"activity": "respVariable",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "DelimitedTextSource",
+									"additionalColumns": {
+										"type": "Expression",
+										"value": "@variables('respVariable')"
+									},
+									"storeSettings": {
+										"type": "AzureBlobStorageReadSettings",
+										"recursive": true,
+										"enablePartitionDiscovery": false
+									},
+									"formatSettings": {
+										"type": "DelimitedTextReadSettings"
+									}
+								},
+								"sink": {
+									"type": "JsonSink",
+									"storeSettings": {
+										"type": "AzureBlobStorageWriteSettings"
+									},
+									"formatSettings": {
+										"type": "JsonWriteSettings"
+									}
+								},
+								"enableStaging": false
+							},
+							"inputs": [
+								{
+									"referenceName": "DelimitedText1",
+									"type": "DatasetReference"
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "Json2",
+									"type": "DatasetReference"
+								}
+							]
+						}
+					]
 				}
 			}
 		],
@@ -53,6 +130,9 @@
 				"type": "String"
 			},
 			"resVariable": {
+				"type": "Array"
+			},
+			"respVariable": {
 				"type": "Array"
 			}
 		},
