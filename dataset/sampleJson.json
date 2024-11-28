@@ -14,6 +14,13 @@
 				"container": "raw"
 			}
 		},
-		"schema": {}
+		"schema": {
+			"type": "object",
+			"properties": {
+				"column1": {
+					"type": "integer"
+				}
+			}
+		}
 	}
 }
