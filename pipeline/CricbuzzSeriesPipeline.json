@@ -131,8 +131,7 @@
 				"defaultValue": "sample text"
 			},
 			"responseVariable": {
-				"type": "Array",
-				"defaultValue": []
+				"type": "String"
 			}
 		},
 		"annotations": []
