@@ -84,10 +84,6 @@
 							"typeProperties": {
 								"source": {
 									"type": "JsonSource",
-									"additionalColumns": {
-										"type": "Expression",
-										"value": "@variables('responseVariable')"
-									},
 									"storeSettings": {
 										"type": "AzureBlobStorageReadSettings",
 										"recursive": false,
@@ -106,7 +102,11 @@
 										"type": "JsonWriteSettings"
 									}
 								},
-								"enableStaging": false
+								"enableStaging": false,
+								"translator": {
+									"value": "@variables('responseVariable')",
+									"type": "Expression"
+								}
 							},
 							"inputs": [
 								{
