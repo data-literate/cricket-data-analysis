@@ -39,7 +39,7 @@
 							}
 						},
 						{
-							"name": "respVariable",
+							"name": "responseVariable",
 							"type": "SetVariable",
 							"dependsOn": [
 								{
@@ -57,7 +57,7 @@
 							"typeProperties": {
 								"variableName": "responseVariable",
 								"value": {
-									"value": "@activity('APIgetSeriesLeague').output.seriesMapProto[0].series",
+									"value": "@activity('APIgetSeriesLeague').output.seriesMapProto[0]",
 									"type": "Expression"
 								}
 							}
@@ -67,7 +67,7 @@
 							"type": "Copy",
 							"dependsOn": [
 								{
-									"activity": "respVariable",
+									"activity": "responseVariable",
 									"dependencyConditions": [
 										"Succeeded"
 									]
@@ -84,6 +84,10 @@
 							"typeProperties": {
 								"source": {
 									"type": "JsonSource",
+									"additionalColumns": {
+										"type": "Expression",
+										"value": "@variables('responseVariable')"
+									},
 									"storeSettings": {
 										"type": "AzureBlobStorageReadSettings",
 										"recursive": false,
@@ -102,11 +106,7 @@
 										"type": "JsonWriteSettings"
 									}
 								},
-								"enableStaging": false,
-								"translator": {
-									"value": "@variables('responseVariable')",
-									"type": "Expression"
-								}
+								"enableStaging": false
 							},
 							"inputs": [
 								{
@@ -126,13 +126,13 @@
 			}
 		],
 		"variables": {
-			"responseVariable": {
-				"type": "Array",
-				"defaultValue": []
-			},
 			"testVariable": {
 				"type": "String",
 				"defaultValue": "sample text"
+			},
+			"responseVariable": {
+				"type": "Array",
+				"defaultValue": []
 			}
 		},
 		"annotations": []
