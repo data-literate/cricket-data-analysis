@@ -86,7 +86,7 @@
 									"type": "JsonSource",
 									"additionalColumns": {
 										"type": "Expression",
-										"value": "@{variables('responseVariable')}"
+										"value": "@variables('responseVariable')"
 									},
 									"storeSettings": {
 										"type": "AzureBlobStorageReadSettings",
