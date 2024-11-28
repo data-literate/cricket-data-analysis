@@ -57,7 +57,7 @@
 							"typeProperties": {
 								"variableName": "responseVariable",
 								"value": {
-									"value": "@activity('APIgetSeriesLeague').output.seriesMapProto[0]",
+									"value": "@{activity('APIgetSeriesLeague').output.seriesMapProto[0]}",
 									"type": "Expression"
 								}
 							}
@@ -86,7 +86,7 @@
 									"type": "JsonSource",
 									"additionalColumns": {
 										"type": "Expression",
-										"value": "@variables('responseVariable')"
+										"value": "@{variables('responseVariable')}"
 									},
 									"storeSettings": {
 										"type": "AzureBlobStorageReadSettings",
