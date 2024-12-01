@@ -1,10 +1,10 @@
 {
-	"name": "pipeline1",
+	"name": "league_pipeline",
 	"properties": {
 		"activities": [
 			{
-				"name": "Copy data1",
-				"type": "Copy",
+				"name": "Web1",
+				"type": "WebActivity",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -15,44 +15,39 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"source": {
-						"type": "JsonSource",
-						"storeSettings": {
-							"type": "AzureBlobStorageReadSettings",
-							"recursive": true,
-							"enablePartitionDiscovery": false
+					"method": "GET",
+					"headers": {
+						"x-rapidapi-key": {
+							"value": "@pipeline().parameters.x_rapidapi_key",
+							"type": "Expression"
 						},
-						"formatSettings": {
-							"type": "JsonReadSettings"
+						"x-rapidapi-host": {
+							"value": "@pipeline().parameters.x_rapidapi_host",
+							"type": "Expression"
 						}
 					},
-					"sink": {
-						"type": "DelimitedTextSink",
-						"storeSettings": {
-							"type": "AzureBlobStorageWriteSettings"
-						},
-						"formatSettings": {
-							"type": "DelimitedTextWriteSettings",
-							"quoteAllText": true,
-							"fileExtension": ".csv"
-						}
-					},
-					"enableStaging": false
-				},
-				"inputs": [
-					{
-						"referenceName": "Json1",
-						"type": "DatasetReference"
+					"url": {
+						"value": "@concat('https://cricbuzz-cricket.p.rapidapi.com/series/v1/archives/league?year=',variables('year'))",
+						"type": "Expression"
 					}
-				],
-				"outputs": [
-					{
-						"referenceName": "DelimitedText1",
-						"type": "DatasetReference"
-					}
-				]
+				}
 			}
 		],
+		"parameters": {
+			"x_rapidapi_key": {
+				"type": "String",
+				"defaultValue": "19b75326b3mshc9a93b138461d32p192a82jsnead60c87e459"
+			},
+			"x_rapidapi_host": {
+				"type": "String",
+				"defaultValue": "cricbuzz-cricket.p.rapidapi.com"
+			}
+		},
+		"variables": {
+			"year": {
+				"type": "Integer"
+			}
+		},
 		"annotations": [],
 		"lastPublishTime": "2024-10-18T05:26:22Z"
 	},
