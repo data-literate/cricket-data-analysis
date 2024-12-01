@@ -1,0 +1,9 @@
+{
+	"name": "cricket-adf",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "b3965600-016d-437f-9a4c-3c352abfe144",
+		"tenantId": "0a8e079c-45bf-437c-87be-0a3d593954c2"
+	}
+}
