@@ -106,8 +106,7 @@
 										"enablePartitionDiscovery": false
 									},
 									"formatSettings": {
-										"type": "DelimitedTextReadSettings",
-										"skipLineCount": 1
+										"type": "DelimitedTextReadSettings"
 									}
 								},
 								"sink": {
@@ -132,7 +131,7 @@
 												"type": "String"
 											},
 											"sink": {
-												"name": "Column2",
+												"name": "year",
 												"type": "String",
 												"physicalType": "String"
 											}
@@ -143,7 +142,7 @@
 												"type": "String"
 											},
 											"sink": {
-												"name": "Column3",
+												"name": "data",
 												"type": "String",
 												"physicalType": "String"
 											}
