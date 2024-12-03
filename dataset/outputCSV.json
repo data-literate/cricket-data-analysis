@@ -1,0 +1,28 @@
+{
+	"name": "outputCSV",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "CricketBlobStorage",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"folderPath": "league",
+				"container": "raw"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "data",
+				"type": "String"
+			}
+		]
+	}
+}
