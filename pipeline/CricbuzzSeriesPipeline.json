@@ -9,7 +9,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@range(2008,3)",
+						"value": "@range(2008,2)",
 						"type": "Expression"
 					},
 					"isSequential": true,
@@ -113,7 +113,7 @@
 									"type": "DelimitedTextSink",
 									"storeSettings": {
 										"type": "AzureBlobStorageWriteSettings",
-										"copyBehavior": "PreserveHierarchy"
+										"copyBehavior": "MergeFiles"
 									},
 									"formatSettings": {
 										"type": "DelimitedTextWriteSettings",
