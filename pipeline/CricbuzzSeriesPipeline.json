@@ -3,13 +3,13 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "ForEach1",
+				"name": "Loop_for_league_series",
 				"type": "ForEach",
 				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@range(2008,2009)",
+						"value": "@range(2008,2)",
 						"type": "Expression"
 					},
 					"isSequential": true,
@@ -83,40 +83,87 @@
 							"userProperties": [],
 							"typeProperties": {
 								"source": {
-									"type": "JsonSource",
-									"additionalColumns": {
-										"type": "Expression",
-										"value": "@variables('responseVariable')"
-									},
+									"type": "DelimitedTextSource",
+									"additionalColumns": [
+										{
+											"name": "year",
+											"value": {
+												"value": "@item()",
+												"type": "Expression"
+											}
+										},
+										{
+											"name": "data",
+											"value": {
+												"value": "@variables('responseVariable')",
+												"type": "Expression"
+											}
+										}
+									],
 									"storeSettings": {
 										"type": "AzureBlobStorageReadSettings",
-										"recursive": false,
+										"recursive": true,
 										"enablePartitionDiscovery": false
 									},
 									"formatSettings": {
-										"type": "JsonReadSettings"
+										"type": "DelimitedTextReadSettings"
 									}
 								},
 								"sink": {
-									"type": "JsonSink",
+									"type": "DelimitedTextSink",
 									"storeSettings": {
-										"type": "AzureBlobStorageWriteSettings"
+										"type": "AzureBlobStorageWriteSettings",
+										"copyBehavior": "FlattenHierarchy"
 									},
 									"formatSettings": {
-										"type": "JsonWriteSettings"
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".csv"
 									}
 								},
-								"enableStaging": false
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"mappings": [
+										{
+											"source": {
+												"name": "year",
+												"type": "String"
+											},
+											"sink": {
+												"name": "Column2",
+												"type": "String",
+												"physicalType": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "data",
+												"type": "String"
+											},
+											"sink": {
+												"name": "Column3",
+												"type": "String",
+												"physicalType": "String"
+											}
+										}
+									],
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
 							},
 							"inputs": [
 								{
-									"referenceName": "sampleJson",
+									"referenceName": "sampleCSV",
 									"type": "DatasetReference"
 								}
 							],
 							"outputs": [
 								{
-									"referenceName": "outputJson",
+									"referenceName": "outputCSV",
 									"type": "DatasetReference"
 								}
 							]
