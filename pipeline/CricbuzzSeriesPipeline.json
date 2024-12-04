@@ -102,7 +102,7 @@
 									],
 									"storeSettings": {
 										"type": "AzureBlobStorageReadSettings",
-										"recursive": true,
+										"recursive": false,
 										"enablePartitionDiscovery": false
 									},
 									"formatSettings": {
@@ -125,6 +125,18 @@
 								"translator": {
 									"type": "TabularTranslator",
 									"mappings": [
+										{
+											"source": {
+												"name": "Column1",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "Column1",
+												"type": "String",
+												"physicalType": "String"
+											}
+										},
 										{
 											"source": {
 												"name": "year",
