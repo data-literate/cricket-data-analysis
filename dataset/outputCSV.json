@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "series.csv",
+				"fileName": "series.txt",
 				"folderPath": "league",
 				"container": "raw"
 			},
