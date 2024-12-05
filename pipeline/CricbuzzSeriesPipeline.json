@@ -131,7 +131,7 @@
 												"type": "String"
 											},
 											"sink": {
-												"name": "year",
+												"name": "Column2",
 												"type": "String",
 												"physicalType": "String"
 											}
@@ -142,7 +142,7 @@
 												"type": "String"
 											},
 											"sink": {
-												"name": "data",
+												"name": "Column3",
 												"type": "String",
 												"physicalType": "String"
 											}
