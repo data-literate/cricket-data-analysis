@@ -112,8 +112,7 @@
 								"sink": {
 									"type": "DelimitedTextSink",
 									"storeSettings": {
-										"type": "AzureBlobStorageWriteSettings",
-										"copyBehavior": "MergeFiles"
+										"type": "AzureBlobStorageWriteSettings"
 									},
 									"formatSettings": {
 										"type": "DelimitedTextWriteSettings",
@@ -131,9 +130,9 @@
 												"type": "String"
 											},
 											"sink": {
-												"name": "year",
 												"type": "String",
-												"physicalType": "String"
+												"physicalType": "String",
+												"ordinal": 1
 											}
 										},
 										{
@@ -142,9 +141,9 @@
 												"type": "String"
 											},
 											"sink": {
-												"name": "data",
 												"type": "String",
-												"physicalType": "String"
+												"physicalType": "String",
+												"ordinal": 2
 											}
 										}
 									],
