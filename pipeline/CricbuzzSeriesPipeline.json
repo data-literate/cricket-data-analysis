@@ -127,13 +127,14 @@
 									"mappings": [
 										{
 											"source": {
-												"type": "String",
-												"ordinal": 1
-											},
-											"sink": {
 												"name": "Column1",
 												"type": "String",
 												"physicalType": "String"
+											},
+											"sink": {
+												"type": "String",
+												"physicalType": "String",
+												"ordinal": 1
 											}
 										},
 										{
@@ -142,9 +143,9 @@
 												"type": "String"
 											},
 											"sink": {
-												"name": "Column2",
 												"type": "String",
-												"physicalType": "String"
+												"physicalType": "String",
+												"ordinal": 2
 											}
 										},
 										{
@@ -153,9 +154,9 @@
 												"type": "String"
 											},
 											"sink": {
-												"name": "Column3",
 												"type": "String",
-												"physicalType": "String"
+												"physicalType": "String",
+												"ordinal": 3
 											}
 										}
 									],
