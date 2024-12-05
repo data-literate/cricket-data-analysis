@@ -172,6 +172,12 @@
 				}
 			}
 		],
+		"parameters": {
+			"years": {
+				"type": "array",
+				"defaultValue": []
+			}
+		},
 		"variables": {
 			"testVariable": {
 				"type": "String",
