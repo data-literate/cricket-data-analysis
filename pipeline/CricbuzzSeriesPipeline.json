@@ -131,9 +131,9 @@
 												"type": "String"
 											},
 											"sink": {
-												"name": "Column2",
 												"type": "String",
-												"physicalType": "String"
+												"physicalType": "String",
+												"ordinal": 1
 											}
 										},
 										{
@@ -142,9 +142,9 @@
 												"type": "String"
 											},
 											"sink": {
-												"name": "Column3",
 												"type": "String",
-												"physicalType": "String"
+												"physicalType": "String",
+												"ordinal": 2
 											}
 										}
 									],
