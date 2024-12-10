@@ -63,7 +63,7 @@
 							}
 						},
 						{
-							"name": "copyDataToBlob",
+							"name": "Copy data1",
 							"type": "Copy",
 							"dependsOn": [
 								{
@@ -86,14 +86,7 @@
 									"type": "DelimitedTextSource",
 									"additionalColumns": [
 										{
-											"name": "year",
-											"value": {
-												"value": "@item()",
-												"type": "Expression"
-											}
-										},
-										{
-											"name": "data",
+											"name": "Data",
 											"value": {
 												"value": "@variables('responseVariable')",
 												"type": "Expression"
@@ -118,7 +111,7 @@
 									"formatSettings": {
 										"type": "DelimitedTextWriteSettings",
 										"quoteAllText": true,
-										"fileExtension": ".csv"
+										"fileExtension": ".txt"
 									}
 								},
 								"enableStaging": false,
@@ -127,22 +120,11 @@
 									"mappings": [
 										{
 											"source": {
-												"name": "year",
+												"name": "Data",
 												"type": "String"
 											},
 											"sink": {
-												"name": "year",
-												"type": "String",
-												"physicalType": "String"
-											}
-										},
-										{
-											"source": {
-												"name": "data",
-												"type": "String"
-											},
-											"sink": {
-												"name": "data",
+												"name": "Data",
 												"type": "String",
 												"physicalType": "String"
 											}
@@ -157,7 +139,7 @@
 							},
 							"inputs": [
 								{
-									"referenceName": "sampleCSV",
+									"referenceName": "inputCSV",
 									"type": "DatasetReference"
 								}
 							],
