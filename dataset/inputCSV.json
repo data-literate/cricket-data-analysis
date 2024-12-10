@@ -11,6 +11,7 @@
 			"location": {
 				"type": "AzureBlobStorageLocation",
 				"fileName": "sample.csv",
+				"folderPath": "league",
 				"container": "raw"
 			},
 			"columnDelimiter": ",",
