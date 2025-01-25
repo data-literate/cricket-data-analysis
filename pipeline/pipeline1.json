@@ -66,6 +66,10 @@
 									"value": "@concat('https://cricketstorageaccount.blob.core.windows.net/raw/',item(),'.json')",
 									"type": "Expression"
 								},
+								"connectVia": {
+									"referenceName": "integrationRuntime1",
+									"type": "IntegrationRuntimeReference"
+								},
 								"body": {
 									"value": "@activity('Web2').output",
 									"type": "Expression"
