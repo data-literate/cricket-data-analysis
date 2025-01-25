@@ -3,8 +3,8 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Data flow1",
-				"type": "ExecuteDataFlow",
+				"name": "Web1",
+				"type": "WebActivity",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -15,16 +15,145 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"dataflow": {
-						"referenceName": "dataflow1",
-						"type": "DataFlowReference"
+					"method": "GET",
+					"headers": {
+						"x-rapidapi-host": {
+							"value": "@variables('x-rapidapi-host')",
+							"type": "Expression"
+						},
+						"x-rapidapi-key": {
+							"value": "@variables('x-rapidapi-key')",
+							"type": "Expression"
+						}
 					},
-					"integrationRuntime": {
+					"url": {
+						"value": "@concat('https://cricbuzz-cricket.p.rapidapi.com/series/v1/archives/league?year=',string(pipeline().parameters.year))",
+						"type": "Expression"
+					},
+					"connectVia": {
 						"referenceName": "integrationRuntime1",
 						"type": "IntegrationRuntimeReference"
-					},
-					"traceLevel": "Fine"
+					}
 				}
+			},
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Web1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "response",
+					"value": {
+						"value": "@activity('Web1').output",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Set variable1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"additionalColumns": [
+							{
+								"name": "response",
+								"value": {
+									"value": "@variables('response')",
+									"type": "Expression"
+								}
+							},
+							{
+								"name": "year",
+								"value": {
+									"value": "@string(pipeline().parameters.year)",
+									"type": "Expression"
+								}
+							}
+						],
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "JsonSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings",
+							"copyBehavior": "MergeFiles"
+						},
+						"formatSettings": {
+							"type": "JsonWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "response",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['response']"
+								}
+							},
+							{
+								"source": {
+									"name": "year",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['year']"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DelimitedText1",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "Json1",
+						"type": "DatasetReference"
+					}
+				]
 			}
 		],
 		"parameters": {
@@ -40,6 +169,9 @@
 			"x-rapidapi-key": {
 				"type": "String",
 				"defaultValue": "19b75326b3mshc9a93b138461d32p192a82jsnead60c87e459"
+			},
+			"response": {
+				"type": "String"
 			}
 		},
 		"annotations": []
