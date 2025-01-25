@@ -5,12 +5,20 @@
 			"referenceName": "CricketBlobStorage",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"year": {
+				"type": "string"
+			}
+		},
 		"annotations": [],
 		"type": "Json",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "series.json",
+				"fileName": {
+					"value": "@concat(dataset().year,'.json')",
+					"type": "Expression"
+				},
 				"folderPath": "league/series",
 				"container": "raw"
 			}
