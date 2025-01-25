@@ -13,6 +13,9 @@
 		},
 		"CricketBlobStorage_connectionString": {
 			"value": ""
+		},
+		"RestService1_properties_typeProperties_url": {
+			"value": "@{concat('https://cricbuzz-cricket.p.rapidapi.com/series/v1/archives/league?year=','2008')}"
 		}
 	}
 }
