@@ -27,6 +27,11 @@
 				}
 			}
 		],
+		"parameters": {
+			"year": {
+				"type": "int"
+			}
+		},
 		"variables": {
 			"x-rapidapi-host": {
 				"type": "String",
