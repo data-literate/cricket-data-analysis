@@ -62,7 +62,7 @@
 							{
 								"name": "response",
 								"value": {
-									"value": "@string(activity('Web1').output)",
+									"value": "@string(activity('Web1').output.response.seriesMapProto)",
 									"type": "Expression"
 								}
 							}
