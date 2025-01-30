@@ -1,5 +1,13 @@
 {
 	"name": "cricket-adf",
+	"properties": {
+		"globalParameters": {
+			"x_rapidapi_host": {
+				"type": "string",
+				"value": "cricbuzz-cricket.p.rapidapi.com"
+			}
+		}
+	},
 	"location": "eastus",
 	"identity": {
 		"type": "SystemAssigned",
