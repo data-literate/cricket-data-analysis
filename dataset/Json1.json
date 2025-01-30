@@ -15,10 +15,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": {
-					"value": "@concat(dataset().year,'.json')",
-					"type": "Expression"
-				},
+				"fileName": "series.json",
 				"folderPath": "league/series",
 				"container": "raw"
 			}
