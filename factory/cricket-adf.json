@@ -5,6 +5,10 @@
 			"x_rapidapi_host": {
 				"type": "string",
 				"value": "cricbuzz-cricket.p.rapidapi.com"
+			},
+			"x_rapidapi_key": {
+				"type": "string",
+				"value": "19b75326b3mshc9a93b138461d32p192a82jsnead60c87e459"
 			}
 		}
 	},
