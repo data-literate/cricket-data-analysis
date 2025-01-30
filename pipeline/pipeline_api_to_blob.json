@@ -79,10 +79,12 @@
 					"sink": {
 						"type": "JsonSink",
 						"storeSettings": {
-							"type": "AzureBlobStorageWriteSettings"
+							"type": "AzureBlobStorageWriteSettings",
+							"copyBehavior": "MergeFiles"
 						},
 						"formatSettings": {
-							"type": "JsonWriteSettings"
+							"type": "JsonWriteSettings",
+							"filePattern": "setOfObjects"
 						}
 					},
 					"enableStaging": false,
@@ -95,7 +97,7 @@
 									"type": "String"
 								},
 								"sink": {
-									"path": "$['response']"
+									"path": "response"
 								}
 							}
 						]
