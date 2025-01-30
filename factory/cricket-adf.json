@@ -2,11 +2,11 @@
 	"name": "cricket-adf",
 	"properties": {
 		"globalParameters": {
-			"x_rapidapi_host": {
+			"x_rapidapi_host_value": {
 				"type": "string",
 				"value": "cricbuzz-cricket.p.rapidapi.com"
 			},
-			"x_rapidapi_key": {
+			"x_rapidapi_key_value": {
 				"type": "string",
 				"value": "19b75326b3mshc9a93b138461d32p192a82jsnead60c87e459"
 			},
@@ -14,7 +14,7 @@
 				"type": "string",
 				"value": "x-rapidapi-host"
 			},
-			"x_rapid_key_name": {
+			"x_rapidapi_key_name": {
 				"type": "string",
 				"value": "x-rapidapi-key"
 			}
