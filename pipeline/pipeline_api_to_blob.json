@@ -18,11 +18,11 @@
 					"method": "GET",
 					"headers": {
 						"x-rapidapi-host": {
-							"value": "@variables('x-rapidapi-host')",
+							"value": "@pipeline().globalParameters.x_rapidapi_host",
 							"type": "Expression"
 						},
 						"x-rapidapi-key": {
-							"value": "@variables('x-rapidapi-key')",
+							"value": "@pipeline().globalParameters.x_rapidapi_key",
 							"type": "Expression"
 						}
 					},
