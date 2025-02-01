@@ -1,0 +1,135 @@
+{
+	"name": "Json3",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "CricketBlobStorage",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"year": {
+				"type": "Int"
+			}
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": {
+					"value": "@concat(string(dataset().year),'.json')",
+					"type": "Expression"
+				},
+				"folderPath": "league",
+				"container": "raw"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"body": {
+					"type": "object",
+					"properties": {
+						"appIndex": {
+							"type": "object",
+							"properties": {
+								"seoTitle": {
+									"type": "string"
+								},
+								"webURL": {
+									"type": "string"
+								}
+							}
+						},
+						"seriesMapProto": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"date": {
+										"type": "integer"
+									},
+									"series": {
+										"type": "array",
+										"items": {
+											"type": "object",
+											"properties": {
+												"endDt": {
+													"type": "integer"
+												},
+												"id": {
+													"type": "integer"
+												},
+												"name": {
+													"type": "string"
+												},
+												"startDt": {
+													"type": "integer"
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"headers": {
+					"type": "object",
+					"properties": {
+						"Vary": {
+							"type": "string"
+						},
+						"X-RapidAPI-Request-Id": {
+							"type": "string"
+						},
+						"X-RateLimit-Requests-Remaining": {
+							"type": "string"
+						},
+						"Server": {
+							"type": "string"
+						},
+						"X-RateLimit-Requests-Reset": {
+							"type": "string"
+						},
+						"X-RapidAPI-Version": {
+							"type": "string"
+						},
+						"Connection": {
+							"type": "string"
+						},
+						"X-RateLimit-rapid-free-plans-hard-limit-Reset": {
+							"type": "string"
+						},
+						"X-RateLimit-rapid-free-plans-hard-limit-Limit": {
+							"type": "string"
+						},
+						"Cache-Control": {
+							"type": "string"
+						},
+						"X-RateLimit-Requests-Limit": {
+							"type": "string"
+						},
+						"Content-Type": {
+							"type": "string"
+						},
+						"X-RapidAPI-Region": {
+							"type": "string"
+						},
+						"Date": {
+							"type": "string"
+						},
+						"X-RateLimit-rapid-free-plans-hard-limit-Remaining": {
+							"type": "string"
+						},
+						"cb-loc": {
+							"type": "string"
+						}
+					}
+				},
+				"response": {
+					"type": "string"
+				}
+			}
+		}
+	}
+}

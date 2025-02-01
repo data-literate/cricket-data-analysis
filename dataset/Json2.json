@@ -1,13 +1,13 @@
 {
-	"name": "Json1",
+	"name": "Json2",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "CricketBlobStorage",
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
-			"year": {
-				"type": "string"
+			"series_id": {
+				"type": "Int"
 			}
 		},
 		"annotations": [],
@@ -16,13 +16,20 @@
 			"location": {
 				"type": "AzureBlobStorageLocation",
 				"fileName": {
-					"value": "@concat(string(dataset().year),'.json')",
+					"value": "@concat(string(dataset().series_id),'.json')",
 					"type": "Expression"
 				},
-				"folderPath": "league",
+				"folderPath": "league/series",
 				"container": "raw"
 			}
 		},
-		"schema": {}
+		"schema": {
+			"type": "object",
+			"properties": {
+				"response": {
+					"type": "string"
+				}
+			}
+		}
 	}
 }
