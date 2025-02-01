@@ -1,5 +1,5 @@
 {
-	"name": "pipeline_api_to_blob",
+	"name": "pl_api_to_blob_league_series",
 	"properties": {
 		"activities": [
 			{
