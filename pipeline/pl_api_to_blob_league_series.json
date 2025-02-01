@@ -39,8 +39,6 @@
 			{
 				"name": "Copy data1",
 				"type": "Copy",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "Web1",
@@ -62,7 +60,7 @@
 						"type": "DelimitedTextSource",
 						"additionalColumns": [
 							{
-								"name": "data",
+								"name": "response",
 								"value": {
 									"value": "@string(activity('Web1').output.seriesMapProto[0].series)",
 									"type": "Expression"
@@ -148,6 +146,7 @@
 						"value": "@activity('Web1').output.seriesMapProto[0].series",
 						"type": "Expression"
 					},
+					"isSequential": true,
 					"activities": [
 						{
 							"name": "Web2",
@@ -207,7 +206,7 @@
 									"type": "DelimitedTextSource",
 									"additionalColumns": [
 										{
-											"name": "data",
+											"name": "resp",
 											"value": {
 												"value": "@string(activity('Web2').output.matchDetails)",
 												"type": "Expression"
@@ -226,7 +225,8 @@
 								"sink": {
 									"type": "DelimitedTextSink",
 									"storeSettings": {
-										"type": "AzureBlobStorageWriteSettings"
+										"type": "AzureBlobStorageWriteSettings",
+										"copyBehavior": "PreserveHierarchy"
 									},
 									"formatSettings": {
 										"type": "DelimitedTextWriteSettings",
@@ -240,11 +240,11 @@
 									"mappings": [
 										{
 											"source": {
-												"name": "data",
+												"name": "resp",
 												"type": "String"
 											},
 											"sink": {
-												"name": "data",
+												"name": "resp",
 												"type": "String",
 												"physicalType": "String"
 											}
@@ -252,7 +252,7 @@
 									],
 									"typeConversion": true,
 									"typeConversionSettings": {
-										"allowDataTruncation": true,
+										"allowDataTruncation": false,
 										"treatBooleanAsNumber": false
 									}
 								}
