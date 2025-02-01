@@ -60,9 +60,9 @@
 						"type": "DelimitedTextSource",
 						"additionalColumns": [
 							{
-								"name": "response",
+								"name": "data",
 								"value": {
-									"value": "@activity('Web1').output.seriesMapProto",
+									"value": "@string(activity('Web1').output.seriesMapProto[0].series)",
 									"type": "Expression"
 								}
 							}
@@ -77,14 +77,14 @@
 						}
 					},
 					"sink": {
-						"type": "JsonSink",
+						"type": "DelimitedTextSink",
 						"storeSettings": {
-							"type": "AzureBlobStorageWriteSettings",
-							"copyBehavior": "MergeFiles"
+							"type": "AzureBlobStorageWriteSettings"
 						},
 						"formatSettings": {
-							"type": "JsonWriteSettings",
-							"filePattern": "setOfObjects"
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
 						}
 					},
 					"enableStaging": false,
@@ -97,10 +97,17 @@
 									"type": "String"
 								},
 								"sink": {
-									"path": "response"
+									"name": "response",
+									"type": "String",
+									"physicalType": "String"
 								}
 							}
-						]
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
 					}
 				},
 				"inputs": [
@@ -111,7 +118,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "Json1",
+						"referenceName": "DelimitedText3",
 						"type": "DatasetReference",
 						"parameters": {
 							"year": {
@@ -125,7 +132,8 @@
 		],
 		"parameters": {
 			"year": {
-				"type": "int"
+				"type": "int",
+				"defaultValue": 2009
 			}
 		},
 		"variables": {
