@@ -5,6 +5,8 @@
 			{
 				"name": "Web1",
 				"type": "WebActivity",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -18,11 +20,11 @@
 					"method": "GET",
 					"headers": {
 						"x-rapidapi-host": {
-							"value": "@pipeline().globalParameters.x_rapidapi_host",
+							"value": "@pipeline().globalParameters.x_rapidapi_host_value",
 							"type": "Expression"
 						},
 						"x-rapidapi-key": {
-							"value": "@pipeline().globalParameters.x_rapidapi_key",
+							"value": "@pipeline().globalParameters.x_rapidapi_key_value",
 							"type": "Expression"
 						}
 					},
@@ -39,6 +41,8 @@
 			{
 				"name": "Copy data1",
 				"type": "Copy",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "Web1",
@@ -132,6 +136,8 @@
 			{
 				"name": "ForEach1",
 				"type": "ForEach",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "Web1",
@@ -164,11 +170,11 @@
 								"method": "GET",
 								"headers": {
 									"x-rapidapi-host": {
-										"value": "@pipeline().globalParameters.x_rapidapi_host",
+										"value": "@pipeline().globalParameters.x_rapidapi_host_value",
 										"type": "Expression"
 									},
 									"x-rapidapi-key": {
-										"value": "@pipeline().globalParameters.x_rapidapi_key",
+										"value": "@pipeline().globalParameters.x_rapidapi_key_value",
 										"type": "Expression"
 									}
 								},
@@ -208,7 +214,7 @@
 										{
 											"name": "resp",
 											"value": {
-												"value": "@string(activity('Web2').output.matchDetails)",
+												"value": "@string(activity('Web2').output)",
 												"type": "Expression"
 											}
 										}
@@ -278,6 +284,139 @@
 						}
 					]
 				}
+			},
+			{
+				"name": "Web1_copy1",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"method": "GET",
+					"headers": {
+						"x-rapidapi-host": {
+							"value": "@pipeline().globalParameters.x_rapidapi_host_value",
+							"type": "Expression"
+						},
+						"x-rapidapi-key": {
+							"value": "@pipeline().globalParameters.x_rapidapi_key_value",
+							"type": "Expression"
+						}
+					},
+					"url": {
+						"value": "@concat('https://cricbuzz-cricket.p.rapidapi.com/series/v1/2100')",
+						"type": "Expression"
+					},
+					"connectVia": {
+						"referenceName": "integrationRuntime1",
+						"type": "IntegrationRuntimeReference"
+					}
+				}
+			},
+			{
+				"name": "Copy data1_copy1",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Web1_copy1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"additionalColumns": [
+							{
+								"name": "r1",
+								"value": {
+									"value": "@string(activity('Web1_copy1').output.matchDetails)",
+									"type": "Expression"
+								}
+							}
+						],
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "Data",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Data",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "r1",
+									"type": "String"
+								},
+								"sink": {
+									"name": "r1",
+									"type": "String",
+									"physicalType": "String"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": false,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DelimitedText1",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DelimitedText6",
+						"type": "DatasetReference"
+					}
+				]
 			}
 		],
 		"parameters": {

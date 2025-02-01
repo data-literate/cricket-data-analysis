@@ -1,5 +1,5 @@
 {
-	"name": "DelimitedText1",
+	"name": "DelimitedText6",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "CricketBlobStorage",
@@ -10,8 +10,8 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "series.txt",
-				"folderPath": "league",
+				"fileName": "2100.txt",
+				"folderPath": "league/series",
 				"container": "raw"
 			},
 			"columnDelimiter": ",",
@@ -21,7 +21,7 @@
 		},
 		"schema": [
 			{
-				"name": "Data",
+				"name": "resp",
 				"type": "String"
 			}
 		]
