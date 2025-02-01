@@ -7,7 +7,7 @@
 		},
 		"parameters": {
 			"year": {
-				"type": "string"
+				"type": "int"
 			}
 		},
 		"annotations": [],
