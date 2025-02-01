@@ -1,0 +1,32 @@
+{
+	"name": "DelimitedText5",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "CricketBlobStorage",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"series_id": {
+				"type": "Int"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": {
+					"value": "@concat(string(dataset().series_id),'.txt')",
+					"type": "Expression"
+				},
+				"folderPath": "league/series",
+				"container": "raw"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "",
+			"firstRowAsHeader": true,
+			"quoteChar": ""
+		},
+		"schema": []
+	}
+}
