@@ -5,8 +5,6 @@
 			{
 				"name": "Web1",
 				"type": "WebActivity",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -136,8 +134,6 @@
 			{
 				"name": "ForEach1",
 				"type": "ForEach",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "Web1",
@@ -152,7 +148,7 @@
 						"value": "@activity('Web1').output.seriesMapProto[0].series",
 						"type": "Expression"
 					},
-					"isSequential": true,
+					"isSequential": false,
 					"activities": [
 						{
 							"name": "Web2",
@@ -212,16 +208,16 @@
 									"type": "DelimitedTextSource",
 									"additionalColumns": [
 										{
-											"name": "resp",
+											"name": "response",
 											"value": {
-												"value": "@string(activity('Web2').output)",
+												"value": "@string(activity('Web2').output.matchDetails)",
 												"type": "Expression"
 											}
 										}
 									],
 									"storeSettings": {
 										"type": "AzureBlobStorageReadSettings",
-										"recursive": true,
+										"recursive": false,
 										"enablePartitionDiscovery": false
 									},
 									"formatSettings": {
@@ -231,8 +227,7 @@
 								"sink": {
 									"type": "DelimitedTextSink",
 									"storeSettings": {
-										"type": "AzureBlobStorageWriteSettings",
-										"copyBehavior": "PreserveHierarchy"
+										"type": "AzureBlobStorageWriteSettings"
 									},
 									"formatSettings": {
 										"type": "DelimitedTextWriteSettings",
@@ -246,11 +241,11 @@
 									"mappings": [
 										{
 											"source": {
-												"name": "resp",
+												"name": "response",
 												"type": "String"
 											},
 											"sink": {
-												"name": "resp",
+												"name": "response",
 												"type": "String",
 												"physicalType": "String"
 											}
@@ -258,7 +253,7 @@
 									],
 									"typeConversion": true,
 									"typeConversionSettings": {
-										"allowDataTruncation": false,
+										"allowDataTruncation": true,
 										"treatBooleanAsNumber": false
 									}
 								}
@@ -288,6 +283,8 @@
 			{
 				"name": "Web1_copy1",
 				"type": "WebActivity",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -322,6 +319,8 @@
 			{
 				"name": "Copy data1_copy1",
 				"type": "Copy",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "Web1_copy1",
@@ -345,7 +344,7 @@
 							{
 								"name": "r1",
 								"value": {
-									"value": "@string(activity('Web1_copy1').output.matchDetails)",
+									"value": "@string(activity('Web1_copy1').output)",
 									"type": "Expression"
 								}
 							}
@@ -376,18 +375,6 @@
 						"mappings": [
 							{
 								"source": {
-									"name": "Data",
-									"type": "String",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "Data",
-									"type": "String",
-									"physicalType": "String"
-								}
-							},
-							{
-								"source": {
 									"name": "r1",
 									"type": "String"
 								},
@@ -400,7 +387,7 @@
 						],
 						"typeConversion": true,
 						"typeConversionSettings": {
-							"allowDataTruncation": false,
+							"allowDataTruncation": true,
 							"treatBooleanAsNumber": false
 						}
 					}
