@@ -39,8 +39,6 @@
 			{
 				"name": "Copy data1",
 				"type": "Copy",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "Web1",
@@ -213,6 +211,13 @@
 												"value": "@string(activity('Web2').output.matchDetails)",
 												"type": "Expression"
 											}
+										},
+										{
+											"name": "year",
+											"value": {
+												"value": "@string(pipeline().parameters.year)",
+												"type": "Expression"
+											}
 										}
 									],
 									"storeSettings": {
@@ -241,11 +246,34 @@
 									"mappings": [
 										{
 											"source": {
+												"name": "data",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "data",
+												"type": "String",
+												"physicalType": "String"
+											}
+										},
+										{
+											"source": {
 												"name": "response",
 												"type": "String"
 											},
 											"sink": {
 												"name": "response",
+												"type": "String",
+												"physicalType": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "year",
+												"type": "String"
+											},
+											"sink": {
+												"name": "year",
 												"type": "String",
 												"physicalType": "String"
 											}
@@ -279,131 +307,6 @@
 						}
 					]
 				}
-			},
-			{
-				"name": "Web1_copy1",
-				"type": "WebActivity",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
-				"dependsOn": [],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"method": "GET",
-					"headers": {
-						"x-rapidapi-host": {
-							"value": "@pipeline().globalParameters.x_rapidapi_host_value",
-							"type": "Expression"
-						},
-						"x-rapidapi-key": {
-							"value": "@pipeline().globalParameters.x_rapidapi_key_value",
-							"type": "Expression"
-						}
-					},
-					"url": {
-						"value": "@concat('https://cricbuzz-cricket.p.rapidapi.com/series/v1/2100')",
-						"type": "Expression"
-					},
-					"connectVia": {
-						"referenceName": "integrationRuntime1",
-						"type": "IntegrationRuntimeReference"
-					}
-				}
-			},
-			{
-				"name": "Copy data1_copy1",
-				"type": "Copy",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
-				"dependsOn": [
-					{
-						"activity": "Web1_copy1",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"source": {
-						"type": "DelimitedTextSource",
-						"additionalColumns": [
-							{
-								"name": "r1",
-								"value": {
-									"value": "@string(activity('Web1_copy1').output)",
-									"type": "Expression"
-								}
-							}
-						],
-						"storeSettings": {
-							"type": "AzureBlobStorageReadSettings",
-							"recursive": true,
-							"enablePartitionDiscovery": false
-						},
-						"formatSettings": {
-							"type": "DelimitedTextReadSettings"
-						}
-					},
-					"sink": {
-						"type": "DelimitedTextSink",
-						"storeSettings": {
-							"type": "AzureBlobStorageWriteSettings"
-						},
-						"formatSettings": {
-							"type": "DelimitedTextWriteSettings",
-							"quoteAllText": true,
-							"fileExtension": ".txt"
-						}
-					},
-					"enableStaging": false,
-					"translator": {
-						"type": "TabularTranslator",
-						"mappings": [
-							{
-								"source": {
-									"name": "r1",
-									"type": "String"
-								},
-								"sink": {
-									"name": "r1",
-									"type": "String",
-									"physicalType": "String"
-								}
-							}
-						],
-						"typeConversion": true,
-						"typeConversionSettings": {
-							"allowDataTruncation": true,
-							"treatBooleanAsNumber": false
-						}
-					}
-				},
-				"inputs": [
-					{
-						"referenceName": "DelimitedText1",
-						"type": "DatasetReference"
-					}
-				],
-				"outputs": [
-					{
-						"referenceName": "DelimitedText6",
-						"type": "DatasetReference"
-					}
-				]
 			}
 		],
 		"parameters": {
