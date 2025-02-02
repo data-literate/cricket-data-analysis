@@ -1,1 +1,18 @@
-{}
+{
+	"x_rapidapi_host_value": {
+		"type": "string",
+		"value": "cricbuzz-cricket.p.rapidapi.com"
+	},
+	"x_rapidapi_key_value": {
+		"type": "string",
+		"value": "19b75326b3mshc9a93b138461d32p192a82jsnead60c87e459"
+	},
+	"x_rapidapi_host_name": {
+		"type": "string",
+		"value": "x-rapidapi-host"
+	},
+	"x_rapidapi_key_name": {
+		"type": "string",
+		"value": "x-rapidapi-key"
+	}
+}
