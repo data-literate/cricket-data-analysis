@@ -147,6 +147,7 @@
 					],
 					"storeSettings": {
 						"type": "AzureBlobStorageReadSettings",
+						"recursive": true,
 						"enablePartitionDiscovery": false
 					},
 					"formatSettings": {
@@ -198,7 +199,10 @@
 										"type": "Expression"
 									}
 								},
-								"url": "@concat('https://cricbuzz-cricket.p.rapidapi.com/series/v1/',string(pipeline().parameters.series_id))",
+								"url": {
+									"value": "@concat('https://cricbuzz-cricket.p.rapidapi.com/series/v1/',string(pipeline().parameters.series_id))",
+									"type": "Expression"
+								},
 								"connectVia": {
 									"referenceName": "integrationRuntime1",
 									"type": "IntegrationRuntimeReference"
@@ -297,6 +301,8 @@
 				"type": "int"
 			}
 		},
-		"annotations": []
-	}
+		"annotations": [],
+		"lastPublishTime": "2025-02-02T05:04:15Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
 }
