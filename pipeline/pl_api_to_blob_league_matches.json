@@ -282,7 +282,13 @@
 							"outputs": [
 								{
 									"referenceName": "Json2",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"series_id": {
+											"value": "@pipeline().parameters.series_id",
+											"type": "Expression"
+										}
+									}
 								}
 							]
 						}
