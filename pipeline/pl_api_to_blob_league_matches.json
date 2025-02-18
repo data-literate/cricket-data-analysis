@@ -158,8 +158,6 @@
 			{
 				"name": "ForEach1",
 				"type": "ForEach",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "Get Metadata1",
@@ -191,11 +189,11 @@
 								"method": "GET",
 								"headers": {
 									"x-rapidapi-host": {
-										"value": "@pipeline().globalParameters.x_rapidapi_host",
+										"value": "@pipeline().globalParameters.x_rapidapi_host_value",
 										"type": "Expression"
 									},
 									"x-rapidapi-key": {
-										"value": "@pipeline().globalParameters.x_rapidapi_key",
+										"value": "@pipeline().globalParameters.x_rapidapi_key_value",
 										"type": "Expression"
 									}
 								},
